@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Task } from './entities/task.entity';
 
 @Module({
   imports: [
@@ -15,10 +16,10 @@ import { AppService } from './app.service';
         type: 'postgres',
         host: configService.get('DATABASE_HOST'),
         port: parseInt(configService.get('DATABASE_PORT') ?? '5432', 10),
-        username: configService.get('DATABASE_USERNAME'),
+        username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [],
+        entities: [Task],
         synchronize: true,
       }),
       inject: [ConfigService],
