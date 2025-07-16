@@ -23,7 +23,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is a simple TODO task management API built with [NestJS](https://nestjs.com/) and PostgreSQL. It provides CRUD operations for managing tasks, using TypeORM for database interactions.
 
 ## Project setup
 
@@ -69,6 +69,42 @@ $ mau deploy
 ```
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+
+## Database Setup
+
+This application uses PostgreSQL as its database. A `docker-compose.yml` file is provided to easily set up the database.
+
+1. Ensure you have Docker and Docker Compose installed.
+2. Run `docker-compose up -d` to start the PostgreSQL container.
+3. Create a `.env` file in the root directory with the following content (adjust if necessary):
+
+```
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=user
+DATABASE_PASSWORD=example
+DATABASE_NAME=todo_db
+```
+
+## API Endpoints
+
+The API provides the following endpoints for managing tasks:
+
+- `GET /tasks`: Retrieve all tasks
+- `GET /tasks/:id`: Retrieve a specific task by ID
+- `POST /tasks`: Create a new task (body: { title: string, description?: string, completed?: boolean })
+- `PATCH /tasks/:id`: Update a task (body: partial of create fields)
+- `DELETE /tasks/:id`: Delete a task
+
+## Suggestions
+
+Here are some suggestions to improve this project:
+- Add user authentication and authorization to secure the API.
+- Implement pagination and filtering for the `GET /tasks` endpoint.
+- Add more task fields like due dates, priorities, or categories.
+- Integrate a frontend application (e.g., with React or Angular) to consume the API.
+- Add more comprehensive error handling and validation.
+- Set up CI/CD pipelines for automated testing and deployment.
 
 ## Resources
 
