@@ -12,8 +12,22 @@ export class TasksService {
     private taskRepository: Repository<Task>,
   ) {}
 
-  findAll(): Promise<Task[]> {
-    return this.taskRepository.find();
+  findAll(status?: string, search?: string): Promise<Task[]> {
+    const query = this.taskRepository.createQueryBuilder('task');
+
+    if (status && status.toLowerCase() !== 'all') {
+      const completed = status.toLowerCase() === 'completed';
+      query.andWhere('task.completed = :completed', { completed });
+    }
+
+    if (search) {
+      query.andWhere(
+        '(task.title LIKE :search OR task.description LIKE :search)',
+        { search: `%${search}%` },
+      );
+    }
+
+    return query.getMany();
   }
 
   findOne(id: number): Promise<Task | null> {

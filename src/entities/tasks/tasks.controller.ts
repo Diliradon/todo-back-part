@@ -5,6 +5,7 @@ import {
   Patch,
   Delete,
   Param,
+  Query,
   Body,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
@@ -16,8 +17,8 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  getAll(@Query('status') status?: string, @Query('search') search?: string) {
+    return this.tasksService.findAll(status, search);
   }
 
   @Get(':id')
